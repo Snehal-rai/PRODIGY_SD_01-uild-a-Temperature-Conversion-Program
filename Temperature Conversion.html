@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Conversion Program</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            margin: 50px;
+        }
+
+        #container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2.animated-heading {
+            color: #007bff;
+            margin-bottom: 20px;
+            animation: slideIn 1s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #convertedTemps {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <h2 class="animated-heading">Temperature Conversion Program</h2>
+
+    <label for="temperature">Enter Temperature:</label>
+    <input type="number" id="temperature" placeholder="Enter temperature" required>
+
+    <label for="unit">Select Unit:</label>
+    <select id="unit">
+        <option value="celsius">Celsius</option>
+        <option value="fahrenheit">Fahrenheit</option>
+        <option value="kelvin">Kelvin</option>
+    </select>
+
+    <button onclick="convertTemperature()">Convert</button>
+
+    <h3>Converted Temperatures:</h3>
+    <p id="convertedTemps"></p>
+</div>
+
+<script>
+    function convertTemperature() {
+        var temperatureInput = document.getElementById("temperature").value;
+        var unitSelect = document.getElementById("unit");
+        var selectedUnit = unitSelect.options[unitSelect.selectedIndex].value;
+
+        if (isNaN(temperatureInput)) {
+            alert("Please enter a valid number for temperature.");
+            return;
+        }
+
+        var celsius = parseFloat(temperatureInput);
+        var fahrenheit = 0;
+        var kelvin = 0;
+
+        switch (selectedUnit) {
+            case "celsius":
+                fahrenheit = (celsius * 9/5) + 32;
+                kelvin = celsius + 273.15;
+                break;
+            case "fahrenheit":
+                celsius = (temperatureInput - 32) * 5/9;
+                kelvin = (celsius + 273.15);
+                break;
+            case "kelvin":
+                celsius = temperatureInput - 273.15;
+                fahrenheit = (celsius * 9/5) + 32;
+                break;
+        }
+
+        var resultText = `Celsius: ${celsius.toFixed(2)}°C<br>
+                           Fahrenheit: ${fahrenheit.toFixed(2)}°F<br>
+                           Kelvin: ${kelvin.toFixed(2)}K`;
+
+        document.getElementById("convertedTemps").innerHTML = resultText;
+    }
+</script>
+
+</body>
+</html>
